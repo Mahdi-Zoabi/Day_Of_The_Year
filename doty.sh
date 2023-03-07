@@ -29,5 +29,19 @@ function Year_Type(){
 	
 }
 
-a="$(Year_Type $*)"
-echo $a
+function Days_In_Month(){
+
+	local result=0
+	local year=$1
+	local month=$2
+	local yearType="$(Year_Type $year)"
+	
+	if [[ $month -lt 1 || $month -gt 12 || $yearType == "Invalid Input" ]]
+	then
+		result="Invalid Input"
+	fi
+	
+	echo $result
+}
+
+Days_In_Month $*
