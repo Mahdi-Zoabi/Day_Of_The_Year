@@ -39,6 +39,22 @@ function Days_In_Month(){
 	if [[ $month -lt 1 || $month -gt 12 || $yearType == "Invalid Input" ]]
 	then
 		result="Invalid Input"
+	
+	elif [[ $month -eq 4 || $month -eq 6 || $month -eq 9 || $month -eq 11 ]]
+	then
+		result=30
+	
+	elif [[ $month -eq 2 ]]
+	then
+		if [[ $yearType == "Common Year" ]]
+		then
+			result=28
+		else
+			result=29
+		fi
+	
+	else
+		result=31
 	fi
 	
 	echo $result
