@@ -83,9 +83,51 @@ function Days_Until_Month(){
 	echo $result
 }
 
+function Day_Of_The_Year(){
 
-Days_Until_Month $*
+	local result=0
+	local year=$1
+	local month=$2
+	local day=$3
+	local check="$(Days_Until_Month $year $month)"
+	local checkDays="$(Days_In_Month $year $month)"
+	
+	if [[ $day -gt 31 || $day -lt 1 || $check == "Invalid Input" || $day -gt $checkDays ]]
+	then
+		result="Invalid Input"
+	else
+		local tmp_result="$(Days_Until_Month $year $month)"
+		let result=$tmp_result+$day
+	fi
+	
+	echo $result
+}
 
+
+function main(){
+
+	local result=0
+	local year=$1
+	local month=$2
+	local day=$3
+	
+	if [[ $# -eq 1 ]]
+	then
+		result="$(Year_Type $year)"
+	elif [[ $# -eq 2 ]]
+	then
+		result="$(Days_In_Month $year $month)"
+	elif [[ $# -eq 3 ]]
+	then
+		result="$(Day_Of_The_Year $year $month $day)"
+	else
+		result="Invalid Input"
+	fi
+	
+	echo $result
+}
+
+main $*
 
 
 
