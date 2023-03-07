@@ -60,4 +60,32 @@ function Days_In_Month(){
 	echo $result
 }
 
-Days_In_Month $*
+#Days_In_Month $*
+
+function Days_Until_Month(){
+
+	local result=0
+	local year=$1
+	local month=$2
+	local check="$(Days_In_Month $year $month)"
+	
+	if [[ $check == "Invalid Input" ]]
+	then
+		result="Invalid Input"
+	else	
+		for (( i=1; i<$month ; i++ ))
+		do
+			local tmp_result="$(Days_In_Month $year $i)"
+			let result=$result+$tmp_result
+		done
+	fi
+	
+	echo $result
+}
+
+
+Days_Until_Month $*
+
+
+
+
